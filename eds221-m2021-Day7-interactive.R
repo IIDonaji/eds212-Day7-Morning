@@ -1,5 +1,5 @@
 # clear enevironment
-rm(list -ls())
+rm(list = ls())
 
 # Attach packages
 library(tidyverse)
@@ -14,6 +14,7 @@ library(lubridate) # help us work with dates
 
 #names(penguins)
 # group_by and summarize is used when you need to summarize something
+
 penguins %>% 
 filter (island %in% c("Briscoe", "Dream")) %>% 
   select(-year, -sex) %>% 
@@ -33,3 +34,51 @@ group_by(sex) %>%
   summarise(mean_size = mean(flipper_length_mm),
             sd_size = sd(flipper_length_mm),
             sample_size = n())
+
+# Practice with Joins
+
+animals <- data.frame(
+  stringsAsFactors = FALSE,
+          location = c("lagoon", "bluff", "creek", "oaks", "bluff"),
+           species = c("bobcat", "coyote", "fox", "squirrel", "bobcat"),
+          maturity = c("adult", "juvenile", "adult", "juvenile", "adult")
+)
+
+
+sites <- data.frame(
+           
+  stringsAsFactors = FALSE,
+          location = c("beach", "lagoon", "bluff", "oaks"),
+    full_site_name = c("Goleta Beach","UCSB Lagoon",
+                       "Ellwood Mesa","Fremont Campground"),
+      jurisdiction = c("SB City", "UCSB", "SB City", "USFS")
+)
+
+
+# practice with full_join
+# keeps all rows and adds all columns in this case 5 total
+full_join(animals, sites)
+
+# left_join()
+left_join(animals, sites)
+
+
+# right_join()
+left_join(animals, sites)
+
+# inner_join()
+inner_join(animals, sites)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
