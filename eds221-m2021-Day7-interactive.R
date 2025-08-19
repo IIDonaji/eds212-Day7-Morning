@@ -115,8 +115,87 @@ day(time)
 
 Sys.time() # tells you current time in comp
 
-start_time Sys.time()
+start_time <- Sys.time()
 
 end_time <- Sys.time()
 
 end_time <- start_time
+
+
+# Practice lubridate within a data frame
+
+urchin_counts <- tribble(
+  ~date, ~species, ~size_mm,
+  "10/3/2020", "purple", 55,
+  "10/4/2020", "red", 48,
+  "11/17/2020", "red", 67
+)
+
+urchin_counts %>% 
+  mutate(date = lubridate::mdy(date)) %>% 
+  mutate(year = year(date),# made a column for year using year() from luberdate
+         month = month(date),
+         day = day(date)) 
+
+# math with dates
+day_1 <- lubridate::ymd("2020-01-06")
+day_2 <- lubridate::ymd("2020-05-18")
+day_3 <- lubridate::ymd("2020-05-19")
+
+# Create a time interval, interval between dates using interval() function
+time_interval <- interval(day_1, day_2)
+
+# Check the length in weeks
+time_length(time_interval, "week")
+
+# Check the length in years
+time_length(time_interval, "year")
+
+# Practice with stringr
+
+# Str_detect() to detect string patterns
+# returns TRUE/FALSE depending on whether the pattern is detected
+
+my_string <- "Teddy loves eating salmon and socks."
+
+# Does the pattern "love" exist within the string?
+my_string %>% 
+  str_detect("love")
+
+# Does the pattern "pup" exist within the string?
+my_string %>% 
+  str_detect("pup")
+# also works on vectors
+my_string <- c("burrito", "fish taco", "Taco salad")
+
+# Does the vector element contain the pattern "fish"?
+my_string %>%
+  str_detect("fish") 
+
+# powerful when combined with dplyr functions
+# find all the skywalkers
+
+starwars %>% 
+  filter(str_detect(name, "Skywalker")) # filtering based on strings
+
+firewalkers <- starwars %>% 
+  mutate(name = str_replace(name, pattern = "Sky", replacement = "Fire")) # use this to correct any extra spaces for examples
+
+# cleaning up white space
+
+feedback <- c(" I ate     some   nachos", "Wednesday morning   ")
+
+# Removes leading, trailing & duplicate interior whitespaces using str_squish()
+str_squish(feedback)
+
+# remove just the leading and trailing spaces can use str_trim()
+str_trim(feedback)
+
+# Can also conver cases
+str_to_lower(feedback)
+str_to_upper(feedback)
+str_to_title(feedback)
+str_to_sentence(feedback)
+# count the number of matches in a string
+str_count(feedback, pattern = "nachos")
+
