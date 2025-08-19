@@ -82,7 +82,7 @@ anti_join(sites , animals)
 #animals %>% 
   #filter(!location %in% sites$location)
 
-# Practice with lubridate
+# Practice with lubridate examples:
 
 my_date <- "03-15-1998"
 lubridate::mdy(my_date) # telling lubridate the date data is in mdy()= month, day, and year,  fixed date to ISO 8601
@@ -94,11 +94,29 @@ lubridate::dmy(my_date) #dmy() = date, month, year
 my_date <- "19610518"
 lubridate::ymd(my_date) # ymd = year, month, and day
 
+# what happens if we give lubridate a date that doesnt make sense?
+lubridate::mdy("1942-08-30")
 
+lubridate::dmy("09/12/84") # comp doesnt know this is not correct, important to know date format
 
+# working with date-times
+time <- "2020-08-12 11:18"
+time <- ymd_hm(time) # or in (time, tz = " America/Los_Angeles"), need to look up lubridate time zone names
 
+time # Note that the default is UTC
 
+# convert to PDT
+with_tz(time, "America/Los_Angeles") # did not add a time zone it convert a time zone to pacific daylight time
 
+# extra infor from dates
+week(time)
+year(time)
+day(time)
 
+Sys.time() # tells you current time in comp
 
+start_time Sys.time()
 
+end_time <- Sys.time()
+
+end_time <- start_time
