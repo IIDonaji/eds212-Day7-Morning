@@ -54,7 +54,7 @@ sites <- data.frame(
       jurisdiction = c("SB City", "UCSB", "SB City", "USFS")
 )
 
-
+# Mutating joins
 # practice with full_join
 # keeps all rows and adds all columns in this case 5 total
 full_join(animals, sites)
@@ -70,9 +70,29 @@ left_join(animals, sites)
 inner_join(animals, sites)
 
 
+# Filtering Joins
+
+semi_join(aniamls, sites)
+# same as 
+#animals %>% 
+  #filter(location %in% sites$location)
+
+anti_join(sites , animals)
+
+#animals %>% 
+  #filter(!location %in% sites$location)
+
+# Practice with lubridate
+
+my_date <- "03-15-1998"
+lubridate::mdy(my_date) # telling lubridate the date data is in mdy()= month, day, and year,  fixed date to ISO 8601
 
 
+my_date <- "08-Jun-1974"
+lubridate::dmy(my_date) #dmy() = date, month, year
 
+my_date <- "19610518"
+lubridate::ymd(my_date) # ymd = year, month, and day
 
 
 
